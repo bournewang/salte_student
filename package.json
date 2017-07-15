@@ -1,0 +1,32 @@
+{
+  "name": "salte_student",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "native-base": "^2.2.1",
+    "react": "16.0.0-alpha.12",
+    "react-native": "0.46.3",
+    "react-native-cancelable-fetch": "^0.1.1",
+    "react-native-code-push": "^4.0.0-beta",
+    "react-native-fit-image": "^1.4.9",
+    "react-native-image-crop-picker": "^0.14.1",
+    "react-native-storage": "^0.2.2",
+    "react-native-vector-icons": "^4.2.0",
+    "react-native-video": "^1.0.0",
+    "react-native-video-player": "^0.7.0",
+    "react-navigation": "^1.0.0-beta.11"
+  },
+  "devDependencies": {
+    "babel-jest": "20.0.3",
+    "babel-preset-react-native": "2.1.0",
+    "jest": "20.0.4",
+    "react-test-renderer": "16.0.0-alpha.12"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
