@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListView, View, TextInput  } from 'react-native';
+import { ListView, View, TextInput, FlatList  } from 'react-native';
 import { Body,Button,Container,Content,Icon,Left,ListItem,Right,Text,Spinner,Header,Item,Input } from 'native-base';
 import { NavigationActions } from 'react-navigation'
 import KnowledgePoint from './KnowledgePoint';
@@ -10,12 +10,13 @@ export default class KnowledgePointList extends Component {
   constructor(props){
     super(props);
     this.state = {
-      list_loading: true,
+      refreshing: true,
       item_loading: false,
       subject: props.subject,
       save_key: "KnowledgePoints"+props.subject[0],
       query: '',
-      data: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+      data: [],
+      page: 1
     };
   }
 
@@ -40,26 +41,32 @@ export default class KnowledgePointList extends Component {
                 <Text>Search</Text>
               </Button>
            </Header>
-           <ListView
-             dataSource={this.state.data}
-             enableEmptySections={true}
-             renderRow={(row) =>
-               <ListItem icon>
+           <FlatList
+            refreshing={this.state.refreshing}
+            onRefresh={() => this.fetchData()}
+            // onEndReached={() => this.fetchData()}
+            onEndReachedThreshold={0.5}
+            onEndReached={(info)=>{
+                        console.log("================== distance: "+info.distanceFromEnd);
+                        }}
+             data={this.state.data}
+             renderItem={({item}) =>
+               <ListItem icon key={item.id}>
                  <Left>
                      <Icon name="ios-information-circle-outline" style={{fontSize: 26}}/>
                  </Left>
                  <Body>
-                   <Text>{row.knowledge_set_name}: {row.name}</Text>
+                   <Text style={{fontSize: 12, height: 18}}>{item.name}</Text>
+                   <Text style={{color: 'gray', fontSize: 10}}>{item.knowledge_set_name}</Text>
                  </Body>
                  <Right>
-                    <Button transparent onPress={() => {this.setState({item_loading: true});navigate('KnowledgePoint', {knowledge_point: row})}} >
-                     <Icon name="arrow-forward" />
+                    <Button transparent onPress={() => {this.setState({item_loading: true});navigate('KnowledgePoint', {knowledge_point: item})}} >
+                     <Icon name="ios-arrow-forward" />
                     </Button>
                  </Right>
                </ListItem>
                }
              />
-             {this.state.list_loading && <Spinner color='lightgreen' />}
          </View>
     );
   }
@@ -70,31 +77,32 @@ export default class KnowledgePointList extends Component {
      storage.load({
        key: this.state.save_key,
      }).then(items => {
-      //  this.setState({list_loading: false});
+      //  this.setState({refreshing: false});
        this.setState({
-         data:this.state.data.cloneWithRows(items),
+         data: items,
+         refreshing: false,
          loaded:true,
        })
      }).catch(err => {
        console.warn('catch error: '+err.message);
 
      })
-     this.fetchData();
+    //  this.fetchData();
   }
   componentWillUnmount(){
     fetch.abort(this);
     this.setState({
-      list_loading: false,
+      refreshing: false,
       item_loading: false
     });
   }
 
   fetchData(){
-    this.setState({list_loading: true});
+    this.setState({refreshing: true, page: 1});
     var url = config.get_api_knowledge_points_url(this.state.subject[0], this.state.query);
     fetch(url, null, this)
     .then((response) =>{
-      this.setState({list_loading: false});
+      this.setState({refreshing: false});
       return response.json()
     })
     .then((responseData) =>{
@@ -110,7 +118,8 @@ export default class KnowledgePointList extends Component {
       });
 
       this.setState({
-        data:this.state.data.cloneWithRows(responseData.items),
+        data: responseData.items,
+        pages: responseData.pages,
         loaded:true,
       })
     })

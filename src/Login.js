@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Container, Content, Form, Item, Input, Icon, Label, Text, Spinner } from 'native-base';
 import IconLoading from './Icons/Loading';
+import {build_http_query} from './Helper';
 export default class Login extends Component {
   constructor(props){
     super(props);
-    this.state = {cellphone: '13600001111', password: '123456', loading: false};
+    this.state = {cellphone: '13600001131', password: '001131', loading: false};
   }
   static navigationOptions = {
     title: '登录',
@@ -16,7 +17,7 @@ export default class Login extends Component {
     fetch(config.api_login, {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: helper.build_http_query({cellphone: this.state.cellphone, password: this.state.password})
+      body: build_http_query({cellphone: this.state.cellphone, password: this.state.password})
     })
     .then((response) =>{
       console.log(response);

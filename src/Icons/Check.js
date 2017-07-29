@@ -9,7 +9,7 @@ export default class IconCheck extends Component {
 
   render() {
         return (
-          <Icon name={'md-checkmark'} style={{fontSize: config.icon_size, color: '#43ac6a'}}/>
+          <Icon name={'ios-checkmark-circle-outline'} style={{fontSize: config.icon_size, color: '#43ac6a'}}/>
         );
   }
 }

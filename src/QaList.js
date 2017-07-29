@@ -42,7 +42,7 @@ export default class QaList extends Component {
             renderRow={(row) =>
               <ListItem icon>
                 <Left>
-                  <Icon name="ios-help" style={{fontSize: 26}}/>
+                  {row.anonymity && <Icon name='ios-eye-off-outline' style={{fontSize: config.icon_size}}/>}{!row.anonymity && <Icon name='ios-eye'  style={{fontSize: config.icon_size}}/>}
                 </Left>
                 <Body>
                   <Text style={{fontSize: 12}}>{row.subject}: {row.content.substring(0,40)}</Text>

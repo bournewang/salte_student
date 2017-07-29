@@ -5,6 +5,9 @@ import { NavigationActions } from 'react-navigation'
 import Foundation from 'react-native-vector-icons/Foundation';
 import IconCheck from './Icons/Check';
 import IconTimes from './Icons/Times';
+import IconFinished from './Icons/Finished';
+import IconUnfinished from './Icons/Unfinished';
+
 import Explanation from './Explanation';
 import Foot from './Foot';
 const fetch = require('react-native-cancelable-fetch');
@@ -52,13 +55,12 @@ export default class Mistakes extends Component {
                                  <Icon name="ios-create-outline" style={{fontSize: 30}}/>
                              </Left>
                              <Body>
-                               <Text style={{fontSize: 12}}>{row.question.content_text}</Text>
-                               <Text style={{fontSize: 10, color: 'gray'}}>{row.knowledge_point_name}</Text>
+                               <Text style={{fontSize: 12, height: 30}}>{row.question.content_text}</Text>
                              </Body>
                              <Right>
                                   {row.state && <IconCheck/>}{!row.state && <IconTimes/>}
                                   <Button transparent onPress={() => {console.log("you click me !");navigate('Explanation', {question: row.question})}}>
-                                  <Icon name="arrow-forward" />
+                                  <Icon name="ios-arrow-forward" />
                                  </Button>
                              </Right>
                            </ListItem>
@@ -107,7 +109,7 @@ export default class Mistakes extends Component {
         return
       }
       if (!responseData.items || responseData.items.length < 1)return;
-      
+
       storage.save({
         key: "Mistakes",
         data: responseData.items,

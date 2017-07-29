@@ -9,7 +9,7 @@ export default class IconTimes extends Component {
 
   render() {
         return (
-          <Icon name={'md-close'} style={{fontSize: config.icon_size, color: '#ea2f10'}}/>
+          <Icon name={'ios-close-circle-outline'} style={{fontSize: config.icon_size, color: '#ea2f10'}}/>
         );
   }
 }

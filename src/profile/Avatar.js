@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Container, Content, Icon, Text, List, ListItem, Left, Right, Thumbnail, Body, Footer, FooterTab } from 'native-base';
 import FootTab from '../FootTab';
+import {upload_image} from '../Helper';
 import ImagePicker from 'react-native-image-crop-picker';
 const fetch = require('react-native-cancelable-fetch');
 
@@ -29,7 +30,7 @@ export default class Avatar extends Component {
       console.log('received image', image);
       console.log("set image to: " + image.path);
 
-      helper.upload_image(config.get_api_update_avatar_url(), {path: image.path}).then(() => {
+      upload_image(config.get_api_update_avatar_url(), {path: image.path}).then(() => {
         this.update_userinfo();
       });
 
