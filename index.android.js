@@ -54,7 +54,6 @@ var storage = new Storage({
   defaultExpires: null, //1000 * 3600 * 24,
   enableCache: true
 })
-
 // 对于react native
 global.storage = storage;
 

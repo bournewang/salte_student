@@ -4,6 +4,7 @@ import { Container, Content, Text } from 'native-base';
 import Foot from './Foot';
 import SchoolWorks from './SchoolWorks';
 import Login from './Login';
+import codePush from 'react-native-code-push';
 
 export default class Home extends Component {
   static navigationOptions = {
@@ -23,17 +24,24 @@ export default class Home extends Component {
   }
 
   componentDidMount(){
+    codePush.notifyApplicationReady();
+
     const { navigate } = this.props.navigation;
 
     storage.load({
       key: 'loginState',
     }).then(ret => {
       console.log("load token: "+ret.token);
+      if (!ret || !ret.token || !ret.user){
+        navigate('Login');
+        return;
+      }
+
       config.token = ret.token;
       config.user = ret.user;
       navigate('SchoolWorks');
     }).catch(err => {
-      console.warn(err.message);
+      console.log(err.message);
       navigate('Login');
     })
 

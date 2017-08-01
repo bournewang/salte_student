@@ -17,7 +17,7 @@ export default class SchoolWorkList extends Component {
     this.state = {
       data: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
       school_work_type: props.school_work_type,
-      school_works_key: "SchoolWorks"+props.school_work_type,
+      school_works_key: "SchoolWorks:"+props.school_work_type+":"+config.user.cellphone,
       refreshing: true,
       init_loading: true,
       error_message: null
@@ -90,7 +90,7 @@ export default class SchoolWorkList extends Component {
           refreshing:false,
         })
       }).catch(err => {
-        console.warn('catch error: '+err.message);
+        console.log('catch error: '+err.message);
       })
      this.fetchData();
     }

@@ -9,7 +9,7 @@ export default class Avatar extends Component {
   constructor(props){
     super(props);
     this.state = {
-      avatar: config.user.avatar.thumb
+      avatar: config.user.avatar
     };
   }
   static navigationOptions = {
@@ -53,7 +53,7 @@ export default class Avatar extends Component {
       return response.json()
     }).then((user) => {
       console.log("*** update config.user");
-      this.setState({avatar: user.avatar.thumb});
+      this.setState({avatar: user.avatar});
       config.user = user;
       storage.save({
         key: 'loginState',  // 注意:请不要在key中使用_下划线符号!

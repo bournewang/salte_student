@@ -53,7 +53,7 @@ export default class List extends Component {
       console.log("get data from storage: "+this.props.storage_key);
        this.setState({data:this.state.data.cloneWithRows(items)})
      }).catch(err => {
-       console.warn('catch error: '+err.message);
+       console.log('catch error: '+err.message);
 
      })
      this.fetchData();

@@ -20,7 +20,7 @@ export default class Profile extends Component {
       qa: '',
       qa_submiting: false,
       update: false,
-      avatar: config.user.avatar.thumb
+      avatar: config.user.avatar
     };
   }
   static navigationOptions = {

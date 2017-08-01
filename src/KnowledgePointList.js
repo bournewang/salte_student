@@ -84,10 +84,10 @@ export default class KnowledgePointList extends Component {
          loaded:true,
        })
      }).catch(err => {
-       console.warn('catch error: '+err.message);
+       console.log('catch error: '+err.message);
 
      })
-    //  this.fetchData();
+     this.fetchData();
   }
   componentWillUnmount(){
     fetch.abort(this);

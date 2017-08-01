@@ -80,7 +80,7 @@ export default class Mistakes extends Component {
      this.setState({item_loading: false, error: false });
      // 组件加载完成，开始加载网络数据
       storage.load({
-        key: 'Mistakes',
+        key: 'Mistakes:'+config.user.cellphone,
       }).then(items => {
         this.setState({list_loading: false});
         this.setState({
@@ -88,7 +88,7 @@ export default class Mistakes extends Component {
           refreshing:false,
         })
       }).catch(err => {
-        console.warn('catch error: '+err.message);
+        console.log('catch error: '+err.message);
       })
      this.fetchData();
     }
